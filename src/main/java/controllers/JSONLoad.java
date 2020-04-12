@@ -13,21 +13,36 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Iterator;
 
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class JSONLoad {
 	private static JSONArray JSONTraders;
 	
 	private static JSONArray LoadFile(String fileName) {
-		throw new NotImplementedException();
+		
+		JSONParser parser = new JSONParser();
+		
+		JSONArray jsonObject = null;
+		
+		try (Reader reader = new FileReader(fileName)) {
+
+            jsonObject = (JSONArray) parser.parse(reader);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		
+		return jsonObject;
 	}
 	
-	private static void updateObjects() {
-		
+	private static void updateObjects(String File) {
+		JSONTraders = LoadFile(File);
 	}
 	
 	public static JSONArray GetJSONTraders(boolean Update, String File) {
+		if(Update) {
+			updateObjects(File);
+		}
 		return JSONTraders;
 	}
 }

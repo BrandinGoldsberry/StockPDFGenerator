@@ -5,8 +5,8 @@ import org.json.simple.*;
 public class StockTrade {
 	private TradeType tradeType;
 	private String stockSymbol;
-	private int shareCount;
-	private float sharePrice;
+	private long shareCount;
+	private String sharePrice;
 	
 	public StockTrade(JSONObject InputJson) {
 		//ternary that determines the enum type of sell or buy
@@ -16,14 +16,11 @@ public class StockTrade {
 		//Grabs value and converts object to string
 		stockSymbol = (String) InputJson.get("stock_symbol");
 		
-		//Grabs value, converts to string, then parses to int
-		shareCount = Integer.parseInt((String)InputJson.get("count_shares"));
+		//Grabs value and parses to long
+		shareCount = (long) InputJson.get("count_shares");
 		
-		//Grabs value, converts to string, then grabs all but the first character, which should only leave out the $ sign
-		String priceToParse = ((String) InputJson.get("price_per_share")).substring(1);
-		
-		//parses previous string to a float
-		sharePrice = Float.parseFloat(priceToParse);
+		//Grabs value and parses to string
+		sharePrice = ((String) InputJson.get("price_per_share"));
 	}
 	
 	public TradeType getTradeType() {
@@ -32,10 +29,10 @@ public class StockTrade {
 	public String getStockSymbol() {
 		return stockSymbol;
 	}
-	public int getShareCount() {
+	public long getShareCount() {
 		return shareCount;
 	}
-	public float getSharePrice() {
+	public String getSharePrice() {
 		return sharePrice;
 	}
 	
@@ -45,10 +42,10 @@ public class StockTrade {
 	private void setStockSymbol(String stockSymbol) {
 		this.stockSymbol = stockSymbol;
 	}
-	private void setShareCount(int shareCount) {
+	private void setShareCount(long shareCount) {
 		this.shareCount = shareCount;
 	}
-	private void setSharePrice(float sharePrice) {
+	private void setSharePrice(String sharePrice) {
 		this.sharePrice = sharePrice;
 	}
 }

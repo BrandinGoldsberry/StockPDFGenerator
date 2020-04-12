@@ -1,5 +1,15 @@
 package controllers;
 
-public class AppControllers {
+import models.Trader;
 
+public class AppControllers {
+	private Trader[] traders;
+	
+	public void Run() {
+		
+	}
+	
+	public void LoadTraders() {
+		
+	}
 }
