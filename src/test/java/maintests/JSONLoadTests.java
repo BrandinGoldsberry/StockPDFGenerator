@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import controllers.JSONLoad;
+import controllers.PDFCreator;
 import models.Trader;
 
 import org.json.simple.JSONArray;
@@ -55,5 +56,28 @@ public class JSONLoadTests {
 		//assert
 		assertEquals("Expected: " + expected_number + " Was: " + actual_number , expected_number, actual_number);
 		assertEquals("Expected: " + expected_ssn + " Was: " + actual_ssn , expected_ssn, actual_ssn);
+	}
+	
+	@Test
+	public void TraderToHTML() {
+		JSONArray toConvert = JSONLoad.GetJSONTraders(true, "C:\\Users\\Brandin Goldsberry\\JavaOne\\stock-statement-generator\\stock_transations.by.account.holder.json");
+		Trader[] traders = Trader.JSONsToTraders(toConvert);
+		String Output = PDFCreator.TraderToHTML(traders[0]);
+		
+		System.out.println(Output);
+	}
+	
+	@Test
+	public void HTMLToPDF() {
+		//arrange
+		String OutputFile = "C:\\Users\\Brandin Goldsberry\\JavaOne\\stock-statement-generator\\output.pdf";
+		JSONArray toConvert = JSONLoad.GetJSONTraders(true, "C:\\Users\\Brandin Goldsberry\\JavaOne\\stock-statement-generator\\stock_transations.by.account.holder.json");
+		Trader[] traders = Trader.JSONsToTraders(toConvert);
+		String InputHTML = PDFCreator.TraderToHTML(traders[0]);
+		
+		//act
+		PDFCreator.HTMLToPDF(OutputFile, InputHTML);
+		
+		//assert
 	}
 }

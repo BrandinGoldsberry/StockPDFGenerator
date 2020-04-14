@@ -19,7 +19,7 @@ public class Trader {
 	
 	private String phone;
 	
-	private String beginningBalance;
+	private float beginningBalance;
 	
 	private StockTrade[] stockTrades;
 
@@ -31,13 +31,16 @@ public class Trader {
 		
 		setFirstName((String)InputJSON.get("first_name"));
 		
-		setLastName((String)InputJSON.get("lst_name"));
+		setLastName((String)InputJSON.get("last_name"));
 		
 		setEmail((String)InputJSON.get("email"));
 		
 		setPhone((String)InputJSON.get("phone"));
 		
-		setBeginningBalance((String)InputJSON.get("beginning_balance"));
+		//setBeginningBalance((String)InputJSON.get("beginning_balance"));
+		String priceToParse = ((String) InputJSON.get("beginning_balance")).substring(1);
+		float startPrice = Float.parseFloat(priceToParse);
+		setBeginningBalance(startPrice);
 		
 		setStockTrades((JSONArray)InputJSON.get("stock_trades"));
 	}
@@ -66,7 +69,7 @@ public class Trader {
 		return phone;
 	}
 
-	public String getBeginningBalance() {
+	public float getBeginningBalance() {
 		return beginningBalance;
 	}
 
@@ -98,7 +101,7 @@ public class Trader {
 		this.phone = phone;
 	}
 
-	private void setBeginningBalance(String beginningBalance) {
+	private void setBeginningBalance(float beginningBalance) {
 		this.beginningBalance = beginningBalance;
 	}
 

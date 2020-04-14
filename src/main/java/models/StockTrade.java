@@ -6,7 +6,7 @@ public class StockTrade {
 	private TradeType tradeType;
 	private String stockSymbol;
 	private long shareCount;
-	private String sharePrice;
+	private float sharePrice;
 	
 	public StockTrade(JSONObject InputJson) {
 		//ternary that determines the enum type of sell or buy
@@ -19,8 +19,9 @@ public class StockTrade {
 		//Grabs value and parses to long
 		shareCount = (long) InputJson.get("count_shares");
 		
-		//Grabs value and parses to string
-		sharePrice = ((String) InputJson.get("price_per_share"));
+		//Grabs value, converts to float
+		String sharePriceToParse = ((String) InputJson.get("price_per_share")).substring(1);
+		sharePrice = Float.parseFloat(sharePriceToParse);
 	}
 	
 	public TradeType getTradeType() {
@@ -32,7 +33,7 @@ public class StockTrade {
 	public long getShareCount() {
 		return shareCount;
 	}
-	public String getSharePrice() {
+	public float getSharePrice() {
 		return sharePrice;
 	}
 	
@@ -45,7 +46,7 @@ public class StockTrade {
 	private void setShareCount(long shareCount) {
 		this.shareCount = shareCount;
 	}
-	private void setSharePrice(String sharePrice) {
+	private void setSharePrice(float sharePrice) {
 		this.sharePrice = sharePrice;
 	}
 }
