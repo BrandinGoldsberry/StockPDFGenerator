@@ -1,15 +1,24 @@
 package controllers;
 
+import org.json.simple.JSONArray;
+
 import models.Trader;
 
 public class AppControllers {
-	private Trader[] traders;
+	private static Trader[] traders;
 	
-	public void Run() {
+	private static String inputString;
+	private static String outputString;
+	
+	public static void Run(String[] args) {
+		inputString = args[0];
+		outputString = args[1];
 		
+		LoadTraders();
 	}
 	
-	public void LoadTraders() {
-		
+	public static void LoadTraders() {
+		JSONArray toLoad = JSONLoad.GetJSONTraders(true, inputString);
+		traders = Trader.JSONsToTraders(toLoad);
 	}
 }

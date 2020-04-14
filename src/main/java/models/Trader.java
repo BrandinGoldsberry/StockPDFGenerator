@@ -21,8 +21,11 @@ public class Trader {
 	
 	private float beginningBalance;
 	
+	private float endBalance;
+	
+	private float endStock;
+	
 	private StockTrade[] stockTrades;
-
 	
 	public Trader(JSONObject InputJSON) {
 		setAccountNumber((long)InputJSON.get("account_number"));
@@ -43,6 +46,8 @@ public class Trader {
 		setBeginningBalance(startPrice);
 		
 		setStockTrades((JSONArray)InputJSON.get("stock_trades"));
+		
+		updateBalances();
 	}
 	
 	public long getAccountNumber() {
@@ -75,6 +80,33 @@ public class Trader {
 
 	public StockTrade[] getStockTrades() {
 		return stockTrades;
+	}
+	
+	public float getEndBalance() {
+		return endBalance;
+	}
+
+	public float getEndStock() {
+		return endStock;
+	}
+
+	private void updateBalances() {
+		float endBalVal = beginningBalance;
+		float endStockVal = 0;
+		
+		for (StockTrade stockTrade : stockTrades) {
+			if(stockTrade.getTradeType().equals(TradeType.BUY)) {
+				endBalVal -= stockTrade.getTotalPrice();
+				endStockVal += stockTrade.getTotalPrice();
+			}
+			else {
+				endBalVal += stockTrade.getTotalPrice();
+				endStockVal -= stockTrade.getTotalPrice();
+			}
+		}
+		
+		this.endBalance = endBalVal;
+		this.endStock = endStockVal;
 	}
 
 	private void setAccountNumber(long accountNumber) {

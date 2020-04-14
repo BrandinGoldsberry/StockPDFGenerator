@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
@@ -11,8 +13,11 @@ import models.StockTrade;
 import models.Trader;
 
 public class PDFCreator {
-	private static String HeaderTemplate = "<h1>%s</h1>";
+	private static String HeaderTemplate = "<h3 style='display:inline;'>%s</h3>";
 	private static String ParagraphTemplate = "<p><strong>%s</strong></p>";
+	private static String ParagraphTemplateInlineStrong = "<p style='display:inline;'><strong>%s</strong></p>";
+	private static String ParagraphTemplateInline = "<p style='display:inline;'>%s</p>";
+	private static String ParagraphTemplateInlineMoney = "<p style='display:inline;'>$ %10.2f</p>";
 	private static String ParagraphTemplateNoStrong = "<p>%s</p>";
 	private static String MoneyParagraphTemplate = "<p><strong>$ %10.2f</strong></p>";
 	private static String NameTemplate = "<p>Name: <strong>%1$s %2$s</strong></p>";
@@ -35,28 +40,38 @@ public class PDFCreator {
 		AddHTML(HTMLBuilder, "</div>");
 		
 		AddHTML(HTMLBuilder, "<div>");
-		AddHTML(HeaderTemplate, HTMLBuilder, "Account Number");
-		AddHTML(ParagraphTemplate, HTMLBuilder, trader.getAccountNumber());
+		AddHTML(ParagraphTemplateInlineStrong, HTMLBuilder, "Account Number");
+		AddHTML(ParagraphTemplateInline, HTMLBuilder, trader.getAccountNumber());
 		AddHTML(HTMLBuilder, "</div>");
 		
 		AddHTML(HTMLBuilder, "<div>");
-		AddHTML(HeaderTemplate, HTMLBuilder, "SSN");
-		AddHTML(ParagraphTemplate, HTMLBuilder, trader.getSsn());
+		AddHTML(ParagraphTemplateInlineStrong, HTMLBuilder, "SSN");
+		AddHTML(ParagraphTemplateInline, HTMLBuilder, trader.getSsn());
 		AddHTML(HTMLBuilder, "</div>");
 		
 		AddHTML(HTMLBuilder, "<div>");
-		AddHTML(HeaderTemplate, HTMLBuilder, "Email");
-		AddHTML(ParagraphTemplate, HTMLBuilder, trader.getEmail());
+		AddHTML(ParagraphTemplateInlineStrong, HTMLBuilder, "Email");
+		AddHTML(ParagraphTemplateInline, HTMLBuilder, trader.getEmail());
 		AddHTML(HTMLBuilder, "</div>");
 		
 		AddHTML(HTMLBuilder, "<div>");
-		AddHTML(HeaderTemplate, HTMLBuilder, "Phone");
-		AddHTML(ParagraphTemplate, HTMLBuilder, trader.getPhone());
+		AddHTML(ParagraphTemplateInlineStrong, HTMLBuilder, "Phone");
+		AddHTML(ParagraphTemplateInline, HTMLBuilder, trader.getPhone());
 		AddHTML(HTMLBuilder, "</div>");
 		
 		AddHTML(HTMLBuilder, "<div>");
-		AddHTML(HeaderTemplate, HTMLBuilder, "Beginning Balance");
-		AddHTML(MoneyParagraphTemplate, HTMLBuilder, trader.getBeginningBalance());
+		AddHTML(ParagraphTemplateInlineStrong, HTMLBuilder, "Beginning Balance");
+		AddHTML(ParagraphTemplateInlineMoney, HTMLBuilder, trader.getBeginningBalance());
+		AddHTML(HTMLBuilder, "</div>");
+		
+		AddHTML(HTMLBuilder, "<div>");
+		AddHTML(ParagraphTemplateInlineStrong, HTMLBuilder, "End Balance");
+		AddHTML(ParagraphTemplateInlineMoney, HTMLBuilder, trader.getEndBalance());
+		AddHTML(HTMLBuilder, "</div>");
+		
+		AddHTML(HTMLBuilder, "<div>");
+		AddHTML(ParagraphTemplateInlineStrong, HTMLBuilder, "Stock Balance");
+		AddHTML(ParagraphTemplateInlineMoney, HTMLBuilder, trader.getEndStock());
 		AddHTML(HTMLBuilder, "</div>");
 		
 		AddHTML(HTMLBuilder, "<div>");

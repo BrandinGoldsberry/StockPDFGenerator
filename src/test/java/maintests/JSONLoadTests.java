@@ -70,7 +70,7 @@ public class JSONLoadTests {
 	@Test
 	public void HTMLToPDF() {
 		//arrange
-		String OutputFile = "C:\\Users\\Brandin Goldsberry\\JavaOne\\stock-statement-generator\\output.pdf";
+		String OutputFile = "C:\\Users\\Brandin Goldsberry\\JavaOne\\stock-statement-generator\\outputs\\output.pdf";
 		JSONArray toConvert = JSONLoad.GetJSONTraders(true, "C:\\Users\\Brandin Goldsberry\\JavaOne\\stock-statement-generator\\stock_transations.by.account.holder.json");
 		Trader[] traders = Trader.JSONsToTraders(toConvert);
 		String InputHTML = PDFCreator.TraderToHTML(traders[0]);

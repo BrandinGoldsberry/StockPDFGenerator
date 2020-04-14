@@ -37,6 +37,10 @@ public class StockTrade {
 		return sharePrice;
 	}
 	
+	public float getTotalPrice() {
+		return this.shareCount * this.sharePrice;
+	}
+	
 	private void setTradeType(TradeType tradeType) {
 		this.tradeType = tradeType;
 	}
